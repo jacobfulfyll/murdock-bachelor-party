@@ -72,7 +72,7 @@
 
 ### polish-costs-mobile
 **Task**: Polish costs page layout for mobile
-**Stage**: SIMPLIFY
+**Stage**: REVIEW
 **Pipeline**: code-workflow
 **Branch**: task/polish-costs-mobile
 **Worktree**: .worktree/polish-costs-mobile
@@ -87,7 +87,9 @@
 | IMPLEMENT | 9.60 | 1 | PASS |
 | WRITE-TESTS | SKIP | - | SKIPPED |
 | QUALITY-CHECK | SKIP | - | SKIPPED |
-| SIMPLIFY | - | 0 | CURRENT |
+| SIMPLIFY | 9.60 | 1 | PASS |
+| VERIFY-APP | PASS | 1 | PASS |
+| REVIEW | - | 0 | CURRENT |
 
 ---
 
