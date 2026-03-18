@@ -557,11 +557,34 @@ body.schedule-snap-active {
 .mobile-menu.open .mobile-nav-link:nth-child(6) { transition-delay: 0.25s; }
 .mobile-menu.open .mobile-nav-link:nth-child(7) { transition-delay: 0.3s; }
 
-/* --- Arrivals Card --- */
+/* --- Arrivals Header + Card Grid --- */
+.arrival-header {
+  display: grid;
+  grid-template-columns: 1fr 4rem 4rem;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--cream-400);
+  border-bottom: 1px solid var(--pine-800);
+  margin-bottom: 0.25rem;
+}
+
+.arrival-header span:not(:first-child),
+.arrival-card > span:not(:first-child) {
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .arrival-card {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 4rem 4rem;
+  gap: 0.5rem;
   align-items: center;
-  justify-content: space-between;
   padding: 0.75rem 1rem;
   background-color: var(--pine-900);
   border-radius: 0.5rem;
@@ -571,11 +594,13 @@ body.schedule-snap-active {
 .arrival-time {
   color: var(--skyblue-400);
   font-size: 0.875rem;
+  text-align: right;
 }
 
 .departure-time {
   color: var(--cream-400);
   font-size: 0.875rem;
+  text-align: right;
 }
 
 /* --- Cost Breakdown --- */

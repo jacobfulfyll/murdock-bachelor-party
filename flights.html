@@ -78,6 +78,11 @@
           <button class="day-btn" data-sort="departure" onclick="setSortMode('departure')">By Departure</button>
         </div>
 
+        <div class="arrival-header">
+          <span>Name</span>
+          <span>Arrival</span>
+          <span>Departure</span>
+        </div>
         <div id="arrivals-container" class="space-y-2" style="transition: opacity 0.2s ease;"></div>
       </div>
 
@@ -150,13 +155,15 @@
           var isMystery = p.isMystery;
           var cardStyle = isMystery ? ' style="border-color: var(--sandstone-500);"' : '';
           var nameClass = isMystery ? 'font-medium text-sandstone-300 italic' : 'font-medium text-cream-100';
-          var detail = isMystery ? '<span class="text-sandstone-400 italic">? ? ?</span>'
-            : p.arrival ? '<span class="arrival-time">Arrives ' + p.arrival + '</span><span class="departure-time">Departs ' + p.departure + '</span>'
-            : '<span class="text-cream-400 italic">TBD</span>';
+          var detail = isMystery
+            ? '<span class="text-sandstone-400 italic text-sm">?</span><span class="text-sandstone-400 italic text-sm">?</span>'
+            : p.arrival
+              ? '<span class="arrival-time">' + p.arrival + '</span><span class="departure-time">' + p.departure + '</span>'
+              : '<span class="text-cream-400 italic text-sm">\u2014</span><span class="text-cream-400 italic text-sm">\u2014</span>';
 
           html += '<div class="arrival-card"' + cardStyle + '>'
             + '<span class="' + nameClass + '">' + num + '. ' + name + '</span>'
-            + '<div class="flex gap-4 text-sm">' + detail + '</div></div>';
+            + detail + '</div>';
         }
         return html;
       }
