@@ -17,7 +17,7 @@ murdock_bachelor_party/
 ├── index.html          # Landing page (password gate + photo explosion)
 ├── home.html           # Home page (welcome, Airbnb link, trip info)
 ├── packing.html        # What To Pack (split layout)
-├── arrivals.html       # Arrivals & departures (16 attendees)
+├── flights.html        # Arrivals & departures (16 attendees)
 ├── groceries.html      # Grocery list with Firebase voting + suggestions
 ├── schedule.html       # 4-day slideshow (3 sections per day)
 ├── costs.html          # Cost breakdown by day

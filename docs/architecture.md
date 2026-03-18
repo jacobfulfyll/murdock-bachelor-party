@@ -11,7 +11,7 @@ Pure static site. No build step, no bundler, no Node. Every page is a standalone
 | `index.html` | `/` | Password gate + photo explosion |
 | `home.html` | `/home.html` | Welcome, Airbnb link, trip logistics |
 | `packing.html` | `/packing.html` | What to bring |
-| `arrivals.html` | `/arrivals.html` | Arrivals and departures for 16 attendees |
+| `flights.html` | `/flights.html` | Arrivals and departures for 16 attendees |
 | `groceries.html` | `/groceries.html` | Shopping list with voting and suggestions |
 | `schedule.html` | `/schedule.html` | 4-day slideshow |
 | `costs.html` | `/costs.html` | Cost breakdown |

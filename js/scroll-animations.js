@@ -4,7 +4,7 @@
  * Replicates the IntersectionObserver pattern from schedule.js but for
  * document-level .split-content and .split-image elements (not day-containers).
  *
- * Included on: home.html, arrivals.html, costs.html
+ * Included on: home.html, flights.html, costs.html
  * NOT included on: schedule.html (schedule.js handles its own animations)
  */
 

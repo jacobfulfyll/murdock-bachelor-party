@@ -17,7 +17,7 @@ Open `http://localhost:8000`. Password: `saxcat`
 - **Password gate** with photo explosion on entry
 - **Trip logistics** — Airbnb link, transportation, dates
 - **What To Pack** — curated list for a mountain/city/lake weekend
-- **Arrivals** — schedule for all 16 attendees
+- **Flights** — schedule for all 16 attendees
 - **Groceries** — full shopping list with live up/down voting and group suggestions (Firebase)
 - **4-day schedule** — day-by-day slideshow with activity photos
 - **Cost breakdown** — per-person estimates by category
