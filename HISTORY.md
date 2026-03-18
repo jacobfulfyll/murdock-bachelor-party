@@ -27,6 +27,7 @@
 - [x] add-schedule-scroll-animations Add scroll-triggered fly-in animations to schedule page -- 2026-03-17
 - [x] polish-site-experience Sitewide UX polish -- scroll animations, active nav, card hover, mobile menu, image zoom, parallax, page transitions, packing checklist -- 2026-03-17
 - [x] fix-schedule-desktop-scroll: Scroll-snap schedule with centered images, scroll indicator, and smooth glide transitions -- 2026-03-18
+- [x] fix-schedule-photo-crops Fix Thursday evening and Friday morning photo crops on mobile -- 2026-03-18
 - [x] schedule-mobile-dividers: Add section dividers between schedule slides on mobile -- 2026-03-18
 - [x] polish-costs-mobile: Polish costs page layout for mobile -- 2026-03-18
 - [x] rename-arrivals-to-flights: Rename arrivals page to "Flights" -- 2026-03-18
