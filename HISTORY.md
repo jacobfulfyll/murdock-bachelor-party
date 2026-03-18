@@ -28,3 +28,4 @@
 - [x] polish-site-experience Sitewide UX polish -- scroll animations, active nav, card hover, mobile menu, image zoom, parallax, page transitions, packing checklist -- 2026-03-17
 - [x] fix-schedule-desktop-scroll: Scroll-snap schedule with centered images, scroll indicator, and smooth glide transitions -- 2026-03-18
 - [x] schedule-mobile-dividers: Add section dividers between schedule slides on mobile -- 2026-03-18
+- [x] polish-costs-mobile: Polish costs page layout for mobile -- 2026-03-18

@@ -52,30 +52,6 @@
 
 ---
 
-### polish-costs-mobile
-**Task**: Polish costs page layout for mobile
-**Stage**: COMMIT
-**Pipeline**: code-workflow
-**Branch**: task/polish-costs-mobile
-**Worktree**: .worktree/polish-costs-mobile
-**Base**: main
-**Started**: 2026-03-18
-**Attempts**: 1
-**Files**:
-- MOD: costs.html
-**Quality Scores**:
-| Stage | Score | Attempts | Status |
-|-------|-------|----------|--------|
-| IMPLEMENT | 9.60 | 1 | PASS |
-| WRITE-TESTS | SKIP | - | SKIPPED |
-| QUALITY-CHECK | SKIP | - | SKIPPED |
-| SIMPLIFY | 9.60 | 1 | PASS |
-| VERIFY-APP | PASS | 1 | PASS |
-| REVIEW | PASS | 1 | PASS |
-| SECURITY-REVIEW | SKIP | - | SKIPPED |
-| SYNC-DOCS | SKIP | - | SKIPPED |
-| REVIEW-WITH-USER | APPROVED | - | PASS |
-
 ---
 
 ## Backlog
