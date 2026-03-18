@@ -62,12 +62,26 @@
 
 ---
 
+### polish-costs-mobile
+**Task**: Polish costs page layout for mobile
+**Stage**: IMPLEMENT
+**Pipeline**: code-workflow
+**Branch**: task/polish-costs-mobile
+**Worktree**: .worktree/polish-costs-mobile
+**Base**: main
+**Started**: 2026-03-18
+**Attempts**: 1
+**Files**:
+- MOD: costs.html
+**Quality Scores**:
+| Stage | Score | Attempts | Status |
+|-------|-------|----------|--------|
+| IMPLEMENT | - | 0 | CURRENT |
+
+---
+
 ## Backlog
 
 ### Flights Page
 - [ ] align-flight-columns: Add header row and align flight columns as grid [P1] [depends: rename-arrivals-to-flights] [moderate] [tier: opus:medium] [design] [planned]
   files: flights.html (MOD), css/styles.css (MOD)
-
-### Mobile Polish
-- [ ] polish-costs-mobile: Polish costs page layout for mobile [P2] [moderate] [tier: opus:medium] [design] [planned]
-  files: costs.html (MOD)
