@@ -351,6 +351,38 @@ h1, h2, h3, h4 {
   }
 }
 
+/* --- Mobile Schedule Dividers --- */
+@media (max-width: 767px) {
+  .day-container .schedule-slide + .schedule-slide {
+    margin-top: 2rem;
+  }
+
+  .day-container .schedule-slide + .schedule-slide::before {
+    content: '◇';
+    position: absolute;
+    top: -1rem;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    font-size: 0.75rem;
+    color: var(--pine-800);
+    background-color: var(--pine-950);
+    padding: 0 0.75rem;
+    line-height: 1;
+  }
+
+  .day-container .schedule-slide + .schedule-slide::after {
+    content: '';
+    position: absolute;
+    top: -1rem;
+    left: 2rem;
+    right: 2rem;
+    height: 1px;
+    background-color: var(--pine-800);
+    transform: translateY(-50%);
+  }
+}
+
 /* --- Desktop Scroll-Snap Container --- */
 body.schedule-snap-active {
   overflow: hidden;
