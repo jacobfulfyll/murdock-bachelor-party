@@ -31,3 +31,4 @@
 - [x] schedule-mobile-dividers: Add section dividers between schedule slides on mobile -- 2026-03-18
 - [x] polish-costs-mobile: Polish costs page layout for mobile -- 2026-03-18
 - [x] rename-arrivals-to-flights: Rename arrivals page to "Flights" -- 2026-03-18
+- [x] align-flight-columns: Add header row and align flight columns as grid -- 2026-03-18
