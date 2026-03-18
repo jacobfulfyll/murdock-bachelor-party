@@ -29,3 +29,4 @@
 - [x] fix-schedule-desktop-scroll: Scroll-snap schedule with centered images, scroll indicator, and smooth glide transitions -- 2026-03-18
 - [x] schedule-mobile-dividers: Add section dividers between schedule slides on mobile -- 2026-03-18
 - [x] polish-costs-mobile: Polish costs page layout for mobile -- 2026-03-18
+- [x] rename-arrivals-to-flights: Rename arrivals page to "Flights" -- 2026-03-18

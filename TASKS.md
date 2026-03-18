@@ -24,34 +24,6 @@
 
 ---
 
-### rename-arrivals-to-flights
-**Task**: Rename arrivals page to "Flights"
-**Stage**: VERIFY-APP
-**Pipeline**: code-workflow
-**Branch**: task/rename-arrivals-to-flights
-**Worktree**: .worktree/rename-arrivals-to-flights
-**Base**: main
-**Started**: 2026-03-18
-**Attempts**: 1
-**Files**:
-- RENAME: arrivals.html -> flights.html
-- MOD: home.html
-- MOD: packing.html
-- MOD: groceries.html
-- MOD: schedule.html
-- MOD: costs.html
-- MOD: js/scroll-animations.js
-**Quality Scores**:
-| Stage | Score | Attempts | Status |
-|-------|-------|----------|--------|
-| IMPLEMENT | 9.15 | 1 | PASS |
-| WRITE-TESTS | SKIP | - | SKIPPED |
-| QUALITY-CHECK | SKIP | - | SKIPPED |
-| SIMPLIFY | SKIP | - | SKIPPED |
-| VERIFY-APP | - | 0 | CURRENT |
-
----
-
 ---
 
 ## Backlog
