@@ -20,16 +20,54 @@
 
 ---
 
+### rename-arrivals-to-flights
+**Task**: Rename arrivals page to "Flights"
+**Stage**: IMPLEMENT
+**Pipeline**: code-workflow
+**Branch**: task/rename-arrivals-to-flights
+**Worktree**: .worktree/rename-arrivals-to-flights
+**Base**: main
+**Started**: 2026-03-18
+**Attempts**: 1
+**Files**:
+- RENAME: arrivals.html -> flights.html
+- MOD: home.html
+- MOD: packing.html
+- MOD: groceries.html
+- MOD: schedule.html
+- MOD: costs.html
+- MOD: js/scroll-animations.js
+**Quality Scores**:
+| Stage | Score | Attempts | Status |
+|-------|-------|----------|--------|
+| IMPLEMENT | - | 0 | CURRENT |
+
+---
+
+### schedule-mobile-dividers
+**Task**: Add section dividers between schedule slides on mobile
+**Stage**: IMPLEMENT
+**Pipeline**: code-workflow
+**Branch**: task/schedule-mobile-dividers
+**Worktree**: .worktree/schedule-mobile-dividers
+**Base**: main
+**Started**: 2026-03-18
+**Attempts**: 1
+**Files**:
+- MOD: css/styles.css
+**Quality Scores**:
+| Stage | Score | Attempts | Status |
+|-------|-------|----------|--------|
+| IMPLEMENT | - | 0 | CURRENT |
+
+---
+
 ## Backlog
 
 ### Flights Page
-- [ ] rename-arrivals-to-flights: Rename arrivals page to "Flights" [P1] [simple] [tier: sonnet:medium] [code] [planned]
-  files: arrivals.html (RENAME), home.html (MOD), packing.html (MOD), groceries.html (MOD), schedule.html (MOD), costs.html (MOD), js/scroll-animations.js (MOD)
 - [ ] align-flight-columns: Add header row and align flight columns as grid [P1] [depends: rename-arrivals-to-flights] [moderate] [tier: opus:medium] [design] [planned]
   files: flights.html (MOD), css/styles.css (MOD)
 
 ### Mobile Polish
-- [ ] schedule-mobile-dividers: Add section dividers between schedule slides on mobile [P2] [moderate] [tier: opus:medium] [design] [planned]
-  files: css/styles.css (MOD)
 - [ ] polish-costs-mobile: Polish costs page layout for mobile [P2] [moderate] [tier: opus:medium] [design] [planned]
   files: costs.html (MOD)
