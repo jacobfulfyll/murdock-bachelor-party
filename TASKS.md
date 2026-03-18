@@ -26,7 +26,7 @@
 
 ### rename-arrivals-to-flights
 **Task**: Rename arrivals page to "Flights"
-**Stage**: IMPLEMENT
+**Stage**: VERIFY-APP
 **Pipeline**: code-workflow
 **Branch**: task/rename-arrivals-to-flights
 **Worktree**: .worktree/rename-arrivals-to-flights
@@ -44,7 +44,11 @@
 **Quality Scores**:
 | Stage | Score | Attempts | Status |
 |-------|-------|----------|--------|
-| IMPLEMENT | - | 0 | CURRENT |
+| IMPLEMENT | 9.15 | 1 | PASS |
+| WRITE-TESTS | SKIP | - | SKIPPED |
+| QUALITY-CHECK | SKIP | - | SKIPPED |
+| SIMPLIFY | SKIP | - | SKIPPED |
+| VERIFY-APP | - | 0 | CURRENT |
 
 ---
 
