@@ -52,24 +52,6 @@
 
 ---
 
-### schedule-mobile-dividers
-**Task**: Add section dividers between schedule slides on mobile
-**Stage**: IMPLEMENT
-**Pipeline**: code-workflow
-**Branch**: task/schedule-mobile-dividers
-**Worktree**: .worktree/schedule-mobile-dividers
-**Base**: main
-**Started**: 2026-03-18
-**Attempts**: 1
-**Files**:
-- MOD: css/styles.css
-**Quality Scores**:
-| Stage | Score | Attempts | Status |
-|-------|-------|----------|--------|
-| IMPLEMENT | - | 0 | CURRENT |
-
----
-
 ### polish-costs-mobile
 **Task**: Polish costs page layout for mobile
 **Stage**: REVIEW
