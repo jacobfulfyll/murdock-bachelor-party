@@ -34,8 +34,8 @@
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
   <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 </head>
 <body>
   <!-- Navigation -->
@@ -77,6 +77,12 @@
       <span class="eyebrow">Stock Up</span>
       <h1 class="font-serif text-3xl md:text-5xl font-bold text-cream-100 mb-2">Groceries</h1>
       <p class="text-cream-400 text-sm mb-8">Suggested quantities for 16 adults and one very committed Saturday</p>
+      <div
+        x-show="typeof statusMessage === 'function' && statusMessage()"
+        x-text="typeof statusMessage === 'function' ? statusMessage() : ''"
+        :class="typeof firebaseError !== 'undefined' && firebaseError ? 'border-amber-400/40 bg-amber-500/10 text-amber-100' : 'border-skyblue-400/30 bg-skyblue-500/10 text-skyblue-300'"
+        class="mb-8 rounded-2xl border px-4 py-3 text-sm"
+      ></div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Grocery List (2/3) -->
@@ -283,7 +289,7 @@
   <script>requireAuth();</script>
   <script src="js/nav.js"></script>
   <script src="js/parallax.js"></script>
-  <script src="js/groceries.js"></script>
+  <script src="js/groceries.js?v=20260318-3"></script>
   <script src="js/page-transitions.js"></script>
   <script>
     const firebaseConfig = {
