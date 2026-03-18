@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schedule — Murdock's Weekend</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            pine: { 300: '#B3E0C0', 400: '#90CFA2', 500: '#63B57D', 700: '#398852', 800: '#28633B', 900: '#1B4127', 950: '#112C1A' },
+            sandstone: { 200: '#E8D5B7', 300: '#D4AF87', 400: '#C4956A', 500: '#A67C52' },
+            skyblue: { 300: '#A3D4DF', 400: '#7BBFCF', 500: '#5BA8BE' },
+            cream: { 100: '#F5F0E8', 200: '#EDE5D8', 400: '#BDB4A4' },
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav id="main-nav" class="nav-glass fixed top-0 left-0 right-0 z-40 px-6 py-4">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <a href="home.html" class="font-serif italic text-sandstone-300 text-lg">Murdock's Weekend</a>
+      <div class="hidden md:flex items-center gap-6">
+        <a href="home.html" class="nav-link">Home</a>
+        <a href="packing.html" class="nav-link">What To Pack</a>
+        <a href="arrivals.html" class="nav-link">Arrivals</a>
+        <a href="groceries.html" class="nav-link">Groceries</a>
+        <a href="schedule.html" class="nav-link">Schedule</a>
+        <a href="costs.html" class="nav-link">Costs</a>
+      </div>
+      <button id="hamburger-btn" class="md:hidden text-cream-200 p-2" aria-label="Toggle menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobile-menu" class="mobile-menu">
+    <button class="absolute top-4 right-4 text-cream-200 p-2" onclick="document.getElementById('mobile-menu').classList.remove('open'); document.body.style.overflow='';">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+    <a href="home.html" class="mobile-nav-link nav-link">Home</a>
+    <a href="packing.html" class="mobile-nav-link nav-link">What To Pack</a>
+    <a href="arrivals.html" class="mobile-nav-link nav-link">Arrivals</a>
+    <a href="groceries.html" class="mobile-nav-link nav-link">Groceries</a>
+    <a href="schedule.html" class="mobile-nav-link nav-link">Schedule</a>
+    <a href="costs.html" class="mobile-nav-link nav-link">Costs</a>
+  </div>
+
+  <main class="page-content pt-20">
+    <!-- Day Selector -->
+    <div class="sticky top-16 z-30 px-6 py-3 bg-pine-950/90 backdrop-blur-md">
+      <div class="max-w-3xl mx-auto">
+        <div class="day-selector">
+          <button class="day-btn active" data-day="0">
+            <span class="block text-xs uppercase tracking-wider opacity-70">Thu</span>
+            <span class="block font-semibold">7/16</span>
+          </button>
+          <button class="day-btn" data-day="1">
+            <span class="block text-xs uppercase tracking-wider opacity-70">Fri</span>
+            <span class="block font-semibold">7/17</span>
+          </button>
+          <button class="day-btn" data-day="2">
+            <span class="block text-xs uppercase tracking-wider opacity-70">Sat</span>
+            <span class="block font-semibold">7/18</span>
+          </button>
+          <button class="day-btn" data-day="3">
+            <span class="block text-xs uppercase tracking-wider opacity-70">Sun</span>
+            <span class="block font-semibold">7/19</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="schedule-content">
+
+      <!-- DAY 1: Thursday -->
+      <div class="day-container active" data-day="0">
+        <!-- Morning -->
+        <section class="schedule-slide split-section">
+          <div class="split-content bg-pine-950 order-2 md:order-1">
+            <span class="eyebrow text-pine-400">Morning / Afternoon</span>
+            <h2 class="font-serif text-3xl md:text-4xl text-cream-100 mb-4">Arrival & Setup</h2>
+            <div class="space-y-3 text-cream-200 leading-relaxed">
+              <p>Arrivals throughout the day. Check the <a href="arrivals.html" class="text-pine-400 hover:text-pine-300">arrivals page</a> for flight times.</p>
+              <p>We're going to try to coordinate transporting people with the sprinter van and car to the Airbnb, so try to arrive with others.</p>
+              <p>Grocery & alcohol run on arrival (see <a href="groceries.html" class="text-pine-400 hover:text-pine-300">grocery list</a>).</p>
+              <p>Settle in, claim your spot, and crack open some beers at the Airbnb while everyone trickles in.</p>
+            </div>
+          </div>
+          <div class="split-image order-1 md:order-2">
+            <img src="images/schedule/thursday-arrival.avif" alt="Arrival at the cabin" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
+            <div class="split-image-overlay"></div>
+          </div>
+        </section>
+
+        <!-- Afternoon -->
+        <section class="schedule-slide split-section">
+          <div class="split-image order-1 md:order-1">
+            <img src="images/schedule/thursday-bbq.avif" alt="BBQ at the cabin" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
+            <div class="split-image-overlay" style="background: linear-gradient(to left, rgba(10,26,15,0.5), transparent);"></div>
+          </div>
+          <div class="split-content bg-pine-950 order-2 md:order-2">
+            <span class="eyebrow text-pine-400">Dinner</span>
+            <h2 class="font-serif text-3xl md:text-4xl text-cream-100 mb-4">BBQ at the Airbnb</h2>
+            <p class="text-cream-200 leading-relaxed">Fire up the grill or grab takeout from Park City. Keep it casual — it's day one.</p>
+          </div>
+        </section>
+
+        <!-- Evening -->
+        <section class="schedule-slide split-section">
+          <div class="split-content bg-pine-950 order-2 md:order-1">
+            <span class="eyebrow text-pine-400">Evening</span>
+            <h2 class="font-serif text-3xl md:text-4xl text-cream-100 mb-4">Murdock Trivia & Olympics</h2>
+            <div class="space-y-3 text-cream-200 leading-relaxed">
+              <p>Hangout at the Airbnb with games and Murd-themed activities.</p>
+              <div class="card">
+                <span class="eyebrow text-amber-400">Featured Event</span>
+                <p class="text-sm">Murdock Trivia/Olympics — combination of athletic events and Christopher-themed trivia. Expect nonsense.</p>
+              </div>
+            </div>
+          </div>
+          <div class="split-image order-1 md:order-2">
+            <img src="images/schedule/thursday-trivia.webp" alt="Game night" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
+            <div class="split-image-overlay"></div>
+          </div>
+        </section>
+      </div>
+
+      <!-- DAY 2: Friday -->
+      <div class="day-container" data-day="1">
+        <section class="schedule-slide split-section">
+          <div class="split-content bg-pine-950 order-2 md:order-1">
+            <span class="eyebrow text-pine-400">Morning</span>
+            <h2 class="font-serif text-3xl md:text-4xl text-cream-100 mb-4">Mountain Adventure</h2>
+            <div class="space-y-3 text-cream-200 leading-relaxed">
+              <p>Hike from <strong class="text-cream-100">Silver Lake Village</strong> to <strong class="text-cream-100">Bald Mountain Peak</strong>.</p>
+              <div class="card">
+                <span class="eyebrow">Trail Details</span>
+                <p class="text-sm">~45 minute drive to the trailhead via Mirror Lake Highway</p>
+                <p class="text-sm">2.7 miles round trip, ~1,180 ft elevation gain</p>
+                <p class="text-sm">~1.5–2 hours to complete</p>
+              </div>
+              <p>Bring water, sunscreen, and sturdy shoes. The views are worth it.</p>
+            </div>
+          </div>
+          <div class="split-image order-1 md:order-2">
+            <img src="images/schedule/friday-hike.webp" alt="Mountain hiking trail" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
+            <div class="split-image-overlay"></div>
+          </div>
+        </section>
+
+        <section class="schedule-slide split-section">
+          <div class="split-image order-1 md:order-1">
+            <img src="images/schedule/airbnb_hanging.avif" alt="Hanging at the Airbnb" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
+            <div class="split-image-overlay" style="background: linear-gradient(to left, rgba(10,26,15,0.5), transparent);"></div>
+          </div>
+          <div class="split-content bg-pine-950 order-2 md:order-2">
+            <span class="eyebrow text-pine-400">Afternoon</span>
+            <h2 class="font-serif text-3xl md:text-4xl text-cream-100 mb-4">Chill at the Airbnb</h2>
+            <p class="text-cream-200 leading-relaxed">Sandwiches + beers back at the house. Rest up before the big night out.</p>
+          </div>
+        </section>
+
+        <section class="schedule-slide split-section">
+          <div class="split-content bg-pine-950 order-2 md:order-1">
+            <span class="eyebrow text-amber-400">Evening</span>
+            <h2 class="font-serif text-3xl md:text-4xl text-cream-100 mb-4">Downtown Salt Lake City</h2>
+            <div class="space-y-3 text-cream-200 leading-relaxed">
+              <p>Van up and drive into the city.</p>
+              <div class="card">
+                <span class="eyebrow">8:30 PM</span>
+                <p class="text-cream-100 font-medium">Dinner at Repeal</p>
+                <p class="text-sm">Jazz bar + dinner. Dress sharp-ish.</p>
+              </div>
+              <div class="card">
+                <span class="eyebrow">Bar Crawl Route</span>
+                <p class="text-sm"><strong class="text-cream-100">Repeal</strong> → <strong class="text-cream-100">Lake Effect</strong> (155 W 200 S, open til 1am, Church upstairs Thu-Sat 10pm-1am) → <strong class="text-cream-100">Quarters</strong> (5 E 400 S, open til 2am, pool + games)</p>
+              </div>
+            </div>
+          </div>
+          <div class="split-image order-1 md:order-2">
+            <img src="images/schedule/repeal.avif" alt="Repeal restaurant" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
+            <div class="split-image-overlay"></div>
+          </div>
+        </section>
+      </div>
+
+      <!-- DAY 3: Saturday -->
+      <div class="day-container" data-day="2">
+        <section class="schedule-slide split-section">
+          <div class="split-content bg-pine-950 order-2 md:order-1">
+            <span class="eyebrow text-pine-400">Morning</span>
+            <h2 class="font-serif text-3xl md:text-4xl text-cream-100 mb-4">Relaxing Morning</h2>
+            <p class="text-cream-200 leading-relaxed">Sleep in. Brunch at the Airbnb. Recover from Friday night. You'll need the energy for what's coming.</p>
+          </div>
+          <div class="split-image order-1 md:order-2">
+            <img src="images/schedule/saturday-brunch.avif" alt="Morning brunch" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
+            <div class="split-image-overlay"></div>
+          </div>
+        </section>
+
+        <section class="schedule-slide split-section">
+          <div class="split-image order-1 md:order-1">
+            <img src="images/schedule/saturday-lake.webp" alt="Lake day on the pontoon" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
+            <div class="split-image-overlay" style="background: linear-gradient(to left, rgba(10,26,15,0.5), transparent);"></div>
+          </div>
+          <div class="split-content bg-pine-950 order-2 md:order-2">
+            <span class="eyebrow text-pine-400">Afternoon</span>
+            <h2 class="font-serif text-3xl md:text-4xl text-cream-100 mb-4">Lake Day</h2>
+            <div class="space-y-3 text-cream-200 leading-relaxed">
+              <p><strong class="text-cream-100">Jordanelle Reservoir</strong> — ~25 minute drive.</p>
+              <div class="card">
+                <span class="eyebrow">Rentals</span>
+                <p class="text-sm">Pontoon boat + coolers. Load up and float.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="schedule-slide split-section">
+          <div class="split-content bg-pine-950 order-2 md:order-1">
+            <span class="eyebrow text-amber-400">Evening</span>
+            <h2 class="font-serif text-3xl md:text-4xl text-cream-100 mb-4">Park City</h2>
+            <div class="space-y-3 text-cream-200 leading-relaxed">
+              <div class="card">
+                <span class="eyebrow">Dinner</span>
+                <p class="text-sm">Grill night at the Airbnb — tri-tip / steaks.</p>
+              </div>
+              <div class="card">
+                <span class="eyebrow">Park City Main Street Bar Crawl</span>
+                <p class="text-sm">
+                  <strong class="text-cream-100">High West Distillery & Saloon</strong> (whiskey start) →
+                  <strong class="text-cream-100">No Name Saloon & Grill</strong> (rooftop beers) →
+                  <strong class="text-cream-100">The Spur Bar & Grill</strong> (live music + dancing) →
+                  <strong class="text-cream-100">O'Shucks</strong> (dive bar) →
+                  <strong class="text-cream-100">The Cabin</strong> (younger crowd)
+                </p>
+              </div>
+              <div class="card">
+                <span class="eyebrow">Late Night</span>
+                <p class="text-cream-100 font-medium">Post-Crawl Fuel</p>
+                <p class="text-sm">Pizza or tacos. Let's stuff our faces.</p>
+              </div>
+            </div>
+          </div>
+          <div class="split-image order-1 md:order-2">
+            <img src="images/schedule/saturday-parkcity.webp" alt="Park City nightlife" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
+            <div class="split-image-overlay"></div>
+          </div>
+        </section>
+      </div>
+
+      <!-- DAY 4: Sunday -->
+      <div class="day-container" data-day="3">
+        <section class="schedule-slide split-section">
+          <div class="split-content bg-pine-950 order-2 md:order-1">
+            <span class="eyebrow text-pine-400">Morning</span>
+            <h2 class="font-serif text-3xl md:text-4xl text-cream-100 mb-4">Brunch</h2>
+            <div class="space-y-3 text-cream-200 leading-relaxed">
+              <p>Recovery brunch before departures.</p>
+              <div class="card">
+                <span class="eyebrow">Potential Spots</span>
+                <p class="text-sm"><strong class="text-cream-100">Harvest</strong> — great brunch menu</p>
+                <p class="text-sm"><strong class="text-cream-100">Atticus Coffee</strong> — coffee + light bites</p>
+              </div>
+            </div>
+          </div>
+          <div class="split-image order-1 md:order-2">
+            <img src="images/schedule/sunday-brunch.webp" alt="Sunday brunch" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
+            <div class="split-image-overlay"></div>
+          </div>
+        </section>
+
+        <section class="schedule-slide split-section">
+          <div class="split-image order-1 md:order-1">
+            <img src="images/schedule/sunday-trail.webp" alt="Walking the rail trail" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
+            <div class="split-image-overlay" style="background: linear-gradient(to left, rgba(10,26,15,0.5), transparent);"></div>
+          </div>
+          <div class="split-content bg-pine-950 order-2 md:order-2">
+            <span class="eyebrow text-pine-400">Afternoon</span>
+            <h2 class="font-serif text-3xl md:text-4xl text-cream-100 mb-4">Quick Walk & Departures</h2>
+            <div class="space-y-3 text-cream-200 leading-relaxed">
+              <p>For those sticking around — walk the <strong class="text-cream-100">Union Pacific Rail Trail</strong>, a 28-mile trail built on a former railroad line.</p>
+              <p class="text-cream-400 italic">People leave. Sad.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="schedule-slide split-section">
+          <div class="split-content bg-pine-950 order-2 md:order-1">
+            <span class="eyebrow text-sandstone-300">Sunday</span>
+            <h2 class="font-serif text-3xl md:text-4xl text-cream-100 mb-4">That's a Wrap</h2>
+            <p class="text-cream-200 leading-relaxed text-lg">Safe travels, everyone. Let's send Murdock off right.</p>
+          </div>
+          <div class="split-image order-1 md:order-2">
+            <img src="images/schedule/sunday-farewell.webp" alt="Farewell sunset" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
+            <div class="split-image-overlay"></div>
+          </div>
+        </section>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="js/auth.js"></script>
+  <script>requireAuth();</script>
+  <script src="js/nav.js"></script>
+  <script src="js/parallax.js"></script>
+  <script src="js/schedule.js"></script>
+  <script src="js/page-transitions.js"></script>
+</body>
+</html>

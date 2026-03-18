@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home — Murdock's Weekend</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            pine: { 300: '#B3E0C0', 400: '#90CFA2', 500: '#63B57D', 700: '#398852', 800: '#28633B', 900: '#1B4127', 950: '#112C1A' },
+            sandstone: { 200: '#E8D5B7', 300: '#D4AF87', 400: '#C4956A', 500: '#A67C52' },
+            skyblue: { 300: '#A3D4DF', 400: '#7BBFCF', 500: '#5BA8BE' },
+            cream: { 100: '#F5F0E8', 200: '#EDE5D8', 400: '#BDB4A4' },
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav id="main-nav" class="nav-glass fixed top-0 left-0 right-0 z-40 px-6 py-4">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <a href="home.html" class="font-serif italic text-sandstone-300 text-lg">Murdock's Weekend</a>
+
+      <!-- Desktop Nav -->
+      <div class="hidden md:flex items-center gap-6">
+        <a href="home.html" class="nav-link">Home</a>
+        <a href="packing.html" class="nav-link">What To Pack</a>
+        <a href="arrivals.html" class="nav-link">Arrivals</a>
+        <a href="groceries.html" class="nav-link">Groceries</a>
+        <a href="schedule.html" class="nav-link">Schedule</a>
+        <a href="costs.html" class="nav-link">Costs</a>
+      </div>
+
+      <!-- Hamburger -->
+      <button id="hamburger-btn" class="md:hidden text-cream-200 p-2" aria-label="Toggle menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="mobile-menu">
+    <button class="absolute top-4 right-4 text-cream-200 p-2" onclick="document.getElementById('mobile-menu').classList.remove('open'); document.body.style.overflow='';">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+    <a href="home.html" class="mobile-nav-link nav-link">Home</a>
+    <a href="packing.html" class="mobile-nav-link nav-link">What To Pack</a>
+    <a href="arrivals.html" class="mobile-nav-link nav-link">Arrivals</a>
+    <a href="groceries.html" class="mobile-nav-link nav-link">Groceries</a>
+    <a href="schedule.html" class="mobile-nav-link nav-link">Schedule</a>
+    <a href="costs.html" class="mobile-nav-link nav-link">Costs</a>
+  </div>
+
+  <!-- Page Content -->
+  <main class="page-content">
+    <!-- Hero / Split Section -->
+    <section class="split-section">
+      <div class="split-content bg-pine-950 order-2 md:order-1">
+        <span class="eyebrow">July 16–19, 2026</span>
+        <h1 class="font-serif text-4xl md:text-5xl font-bold text-cream-100 mb-4 text-balance">
+          Celebrating Our Boy <em class="text-sandstone-300">Christopher</em>
+        </h1>
+        <p class="text-cream-200 leading-relaxed mb-6">
+          Welcome to the official guide for Murdock's bachelor party weekend in Salt Lake City.
+          Four days of mountains, lake life, bar crawls, and questionable decisions — all in the
+          beautiful Utah wilderness.
+        </p>
+
+        <div class="space-y-4 mb-8">
+          <div class="card">
+            <span class="eyebrow">Location</span>
+            <p class="text-cream-100 font-medium">Salt Lake City / Park City, Utah</p>
+          </div>
+          <div class="card">
+            <span class="eyebrow">Dates</span>
+            <p class="text-cream-100 font-medium">Thursday July 16 — Sunday July 19</p>
+          </div>
+          <div class="card">
+            <span class="eyebrow">Airbnb</span>
+            <a href="https://www.airbnb.com/trips/v1/reservation-details/ro/RESERVATION2_CHECKIN/HMFJKZDM5H"
+               target="_blank"
+               class="text-pine-400 hover:text-pine-300 font-medium transition-colors">
+              View Reservation →
+            </a>
+          </div>
+          <div class="card">
+            <span class="eyebrow">Getting Around</span>
+            <p class="text-cream-200 text-sm">
+              We'll have a Sprinter Van (seats 15) + a second vehicle (~5 seats) for the group.
+              No one needs to drive solo.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Airbnb Image -->
+      <div class="split-image order-1 md:order-2">
+        <img src="images/pages/airbnb_image.avif" alt="Our Airbnb in Utah" loading="lazy">
+        <div class="split-image-overlay"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/auth.js"></script>
+  <script>requireAuth();</script>
+  <script src="js/nav.js"></script>
+  <script src="js/parallax.js"></script>
+  <script src="js/scroll-animations.js"></script>
+  <script src="js/page-transitions.js"></script>
+</body>
+</html>

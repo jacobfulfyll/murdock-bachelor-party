@@ -1,0 +1,36 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Agent memory (local developer data)
+.claude/agent-memory/
+.claude/research-cache/
+.claude/stats.json
+.pipeline/
+
+# Environment
+.env
+.env.local
+
+# Original uncompressed images (compressed versions in images/)
+*.PNG
+*.png
+*.avif
+!images/**
+!images/**/*
+
+# Specifically ignore root-level source images
+/IMG_*.PNG
+/IMG_*.png
+/packing_image.png
+/arrivals_departues.png
+/airbnb_image.avif
+/airbnb_hanging.avif
+/repeal.avif
+/*_photo_explosion.*
+/IMG_9927\ copy*
+.worktree/

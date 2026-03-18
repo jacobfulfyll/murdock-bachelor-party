@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Murdock's Weekend — Salt Lake City</title>
+  <meta name="description" content="Bachelor party weekend for Christopher Murdock in Salt Lake City">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            pine: { 300: '#B3E0C0', 400: '#90CFA2', 500: '#63B57D', 700: '#398852', 800: '#28633B', 900: '#1B4127', 950: '#112C1A' },
+            sandstone: { 200: '#E8D5B7', 300: '#D4AF87', 400: '#C4956A', 500: '#A67C52' },
+            skyblue: { 300: '#A3D4DF', 400: '#7BBFCF', 500: '#5BA8BE' },
+            cream: { 100: '#F5F0E8', 200: '#EDE5D8', 400: '#BDB4A4' },
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="landing-page">
+    <!-- Hero Background -->
+    <div class="landing-hero">
+      <div class="landing-hero-bg parallax-bg" style="background-image: url('images/hero/utah-hero.webp');"></div>
+      <div class="landing-hero-overlay"></div>
+
+      <!-- Password Content -->
+      <div class="relative z-10 text-center px-6 max-w-lg">
+        <h1 class="font-serif text-5xl md:text-7xl font-bold text-cream-100 mb-4">
+          Murdock's<br><em class="text-sandstone-300">Weekend</em>
+        </h1>
+        <p class="text-cream-200 text-lg mb-2">Salt Lake City — July 16-19</p>
+        <p class="text-cream-400 text-sm mb-8">Enter the password to continue</p>
+
+        <form id="password-form" class="flex flex-col items-center gap-3">
+          <input
+            id="password-input"
+            type="text"
+            class="password-input text-center"
+            placeholder="Enter password..."
+            autocomplete="off"
+            autofocus
+          >
+          <button type="submit" class="btn-primary">Enter</button>
+          <p class="text-cream-400 text-xs mt-2">
+            Hint: Murdock's favorite instrument and animal combined as one word
+          </p>
+          <p id="password-error" class="text-red-400 text-sm" style="display: none;"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Photo Explosion Container -->
+  <div id="explosion-container" style="display: none;" role="alert" aria-live="assertive"></div>
+
+  <!-- Scripts -->
+  <script src="js/auth.js"></script>
+  <script src="js/parallax.js"></script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arrivals — Murdock's Weekend</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            pine: { 300: '#B3E0C0', 400: '#90CFA2', 500: '#63B57D', 700: '#398852', 800: '#28633B', 900: '#1B4127', 950: '#112C1A' },
+            sandstone: { 200: '#E8D5B7', 300: '#D4AF87', 400: '#C4956A', 500: '#A67C52' },
+            skyblue: { 300: '#A3D4DF', 400: '#7BBFCF', 500: '#5BA8BE' },
+            cream: { 100: '#F5F0E8', 200: '#EDE5D8', 400: '#BDB4A4' },
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav id="main-nav" class="nav-glass fixed top-0 left-0 right-0 z-40 px-6 py-4">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <a href="home.html" class="font-serif italic text-sandstone-300 text-lg">Murdock's Weekend</a>
+      <div class="hidden md:flex items-center gap-6">
+        <a href="home.html" class="nav-link">Home</a>
+        <a href="packing.html" class="nav-link">What To Pack</a>
+        <a href="arrivals.html" class="nav-link">Arrivals</a>
+        <a href="groceries.html" class="nav-link">Groceries</a>
+        <a href="schedule.html" class="nav-link">Schedule</a>
+        <a href="costs.html" class="nav-link">Costs</a>
+      </div>
+      <button id="hamburger-btn" class="md:hidden text-cream-200 p-2" aria-label="Toggle menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobile-menu" class="mobile-menu">
+    <button class="absolute top-4 right-4 text-cream-200 p-2" onclick="document.getElementById('mobile-menu').classList.remove('open'); document.body.style.overflow='';">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+    <a href="home.html" class="mobile-nav-link nav-link">Home</a>
+    <a href="packing.html" class="mobile-nav-link nav-link">What To Pack</a>
+    <a href="arrivals.html" class="mobile-nav-link nav-link">Arrivals</a>
+    <a href="groceries.html" class="mobile-nav-link nav-link">Groceries</a>
+    <a href="schedule.html" class="mobile-nav-link nav-link">Schedule</a>
+    <a href="costs.html" class="mobile-nav-link nav-link">Costs</a>
+  </div>
+
+  <main class="page-content">
+    <section class="split-section">
+      <div class="split-content bg-pine-950 order-2 md:order-1 pt-24">
+        <span class="eyebrow">Thursday July 16</span>
+        <h1 class="font-serif text-3xl md:text-5xl font-bold text-cream-100 mb-2">Arrivals & Departures</h1>
+        <p class="text-cream-400 text-sm mb-8">Flight times for Murdock's Clowder (a group of cats)</p>
+
+        <!-- Sort Toggle -->
+        <div class="day-selector mb-4">
+          <button class="day-btn active" data-sort="arrival" onclick="setSortMode('arrival')">By Arrival</button>
+          <button class="day-btn" data-sort="departure" onclick="setSortMode('departure')">By Departure</button>
+        </div>
+
+        <div id="arrivals-container" class="space-y-2" style="transition: opacity 0.2s ease;"></div>
+      </div>
+
+      <!-- City Image -->
+      <div class="split-image order-1 md:order-2">
+        <img src="images/pages/salt-lake-city.webp" alt="Salt Lake City skyline" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
+        <div class="split-image-overlay"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/auth.js"></script>
+  <script>requireAuth();</script>
+  <script src="js/nav.js"></script>
+  <script src="js/parallax.js"></script>
+  <script src="js/scroll-animations.js"></script>
+  <script src="js/page-transitions.js"></script>
+
+  <script>
+    (function () {
+      var attendees = [
+        { first: 'Chris', last: 'Murdock', arrival: '12:50pm', departure: '5:30pm' },
+        { first: 'Jake', last: 'Press', arrival: null, departure: null },
+        { first: 'Ben', last: 'Kantor', arrival: '9:51am', departure: '5:15pm' },
+        { first: 'James', last: 'Mulvehill', arrival: '11:45am', departure: '1:30pm' },
+        { first: 'Brian', last: 'Guilder', arrival: '9:47am', departure: '5:40pm' },
+        { first: 'Ben', last: 'Shassol', arrival: null, departure: null },
+        { first: 'Jeremy', last: 'Ostrow', arrival: '9:51am', departure: '5:45pm' },
+        { first: 'Matt', last: 'Nizich', arrival: null, departure: null },
+        { first: 'Bryan', last: 'Zakalik', arrival: null, departure: null },
+        { first: 'Marcus', last: 'Caimi', arrival: null, departure: null },
+        { first: 'Kyle', last: 'Pedro', arrival: null, departure: null },
+        { first: 'Jack', last: 'McCoy', arrival: null, departure: null },
+        { first: 'Eric', last: 'Seaman', arrival: '12:45pm', departure: '5:10pm' },
+        { first: 'Nick', last: 'Gismondi', arrival: '9:51am', departure: '1:59pm' },
+        { first: 'Harry', last: 'Nicastro', arrival: null, departure: null },
+        { first: 'Tanner', last: '???', arrival: null, departure: null, isMystery: true }
+      ];
+
+      var currentSort = 'arrival';
+      var container = document.getElementById('arrivals-container');
+      var fadeTimer = null;
+
+      function parseTime(str) {
+        if (!str) return Infinity;
+        var match = str.match(/^(\d{1,2}):(\d{2})(am|pm)$/i);
+        if (!match) return Infinity;
+        var h = parseInt(match[1], 10);
+        var m = parseInt(match[2], 10);
+        var period = match[3].toLowerCase();
+        if (period === 'am' && h === 12) h = 0;
+        if (period === 'pm' && h !== 12) h += 12;
+        return h * 60 + m;
+      }
+
+      function sortAttendees(mode) {
+        return attendees.slice().sort(function (a, b) {
+          var timeA = parseTime(mode === 'arrival' ? a.arrival : a.departure);
+          var timeB = parseTime(mode === 'arrival' ? b.arrival : b.departure);
+          return timeA !== timeB ? timeA - timeB : a.last.localeCompare(b.last);
+        });
+      }
+
+      function renderCards(sorted) {
+        var html = '';
+        for (var i = 0; i < sorted.length; i++) {
+          var p = sorted[i];
+          var num = i + 1;
+          var name = p.first + ' ' + p.last;
+          var isMystery = p.isMystery;
+          var cardStyle = isMystery ? ' style="border-color: var(--sandstone-500);"' : '';
+          var nameClass = isMystery ? 'font-medium text-sandstone-300 italic' : 'font-medium text-cream-100';
+          var detail = isMystery ? '<span class="text-sandstone-400 italic">? ? ?</span>'
+            : p.arrival ? '<span class="arrival-time">Arrives ' + p.arrival + '</span><span class="departure-time">Departs ' + p.departure + '</span>'
+            : '<span class="text-cream-400 italic">TBD</span>';
+
+          html += '<div class="arrival-card"' + cardStyle + '>'
+            + '<span class="' + nameClass + '">' + num + '. ' + name + '</span>'
+            + '<div class="flex gap-4 text-sm">' + detail + '</div></div>';
+        }
+        return html;
+      }
+
+      function updateList(mode) {
+        var sorted = sortAttendees(mode);
+
+        // Fade out
+        container.style.opacity = '0';
+
+        clearTimeout(fadeTimer);
+        fadeTimer = setTimeout(function () {
+          container.innerHTML = renderCards(sorted);
+          // Fade in
+          container.style.opacity = '1';
+        }, 150);
+      }
+
+      window.setSortMode = function (mode) {
+        if (mode === currentSort) return;
+        currentSort = mode;
+
+        var buttons = document.querySelectorAll('.day-selector .day-btn');
+        buttons.forEach(function (btn) {
+          btn.classList.toggle('active', btn.getAttribute('data-sort') === mode);
+        });
+
+        updateList(mode);
+      };
+
+      // Initial render (no fade, immediate)
+      var sorted = sortAttendees(currentSort);
+      container.innerHTML = renderCards(sorted);
+    })();
+  </script>
+</body>
+</html>

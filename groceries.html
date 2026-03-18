@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Groceries — Murdock's Weekend</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            pine: { 300: '#B3E0C0', 400: '#90CFA2', 500: '#63B57D', 700: '#398852', 800: '#28633B', 900: '#1B4127', 950: '#112C1A' },
+            sandstone: { 200: '#E8D5B7', 300: '#D4AF87', 400: '#C4956A', 500: '#A67C52' },
+            skyblue: { 300: '#A3D4DF', 400: '#7BBFCF', 500: '#5BA8BE' },
+            cream: { 100: '#F5F0E8', 200: '#EDE5D8', 400: '#BDB4A4' },
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav id="main-nav" class="nav-glass fixed top-0 left-0 right-0 z-40 px-6 py-4">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <a href="home.html" class="font-serif italic text-sandstone-300 text-lg">Murdock's Weekend</a>
+      <div class="hidden md:flex items-center gap-6">
+        <a href="home.html" class="nav-link">Home</a>
+        <a href="packing.html" class="nav-link">What To Pack</a>
+        <a href="arrivals.html" class="nav-link">Arrivals</a>
+        <a href="groceries.html" class="nav-link">Groceries</a>
+        <a href="schedule.html" class="nav-link">Schedule</a>
+        <a href="costs.html" class="nav-link">Costs</a>
+      </div>
+      <button id="hamburger-btn" class="md:hidden text-cream-200 p-2" aria-label="Toggle menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobile-menu" class="mobile-menu">
+    <button class="absolute top-4 right-4 text-cream-200 p-2" onclick="document.getElementById('mobile-menu').classList.remove('open'); document.body.style.overflow='';">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+    <a href="home.html" class="mobile-nav-link nav-link">Home</a>
+    <a href="packing.html" class="mobile-nav-link nav-link">What To Pack</a>
+    <a href="arrivals.html" class="mobile-nav-link nav-link">Arrivals</a>
+    <a href="groceries.html" class="mobile-nav-link nav-link">Groceries</a>
+    <a href="schedule.html" class="mobile-nav-link nav-link">Schedule</a>
+    <a href="costs.html" class="mobile-nav-link nav-link">Costs</a>
+  </div>
+
+  <main class="page-content pt-24" x-data="groceryStore()" x-init="init()">
+    <div class="max-w-7xl mx-auto px-6 py-8">
+      <span class="eyebrow">Stock Up</span>
+      <h1 class="font-serif text-3xl md:text-5xl font-bold text-cream-100 mb-2">Groceries</h1>
+      <p class="text-cream-400 text-sm mb-8">Suggested quantities for 16 adults and one very committed Saturday</p>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Grocery List (2/3) -->
+        <div class="lg:col-span-2 space-y-8">
+
+          <!-- Beer -->
+          <div>
+            <h3 class="text-sm uppercase tracking-wider text-sandstone-300 font-medium border-b border-pine-800 pb-2 mb-3">Beer (~200 total)</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div class="card flex items-center justify-between" data-item="beer-light">
+                <span class="text-cream-200 text-sm">4 cases light beer</span>
+                <div class="flex items-center gap-2">
+                  <button class="vote-btn upvote" @click="vote('beer-light', 'up')">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+                    <span x-text="getVoteCount('beer-light')">0</span>
+                  </button>
+                  <button class="vote-btn downvote" @click="vote('beer-light', 'down')">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                  </button>
+                </div>
+              </div>
+              <div class="card flex items-center justify-between" data-item="beer-craft">
+                <span class="text-cream-200 text-sm">3 cases craft/local</span>
+                <div class="flex items-center gap-2">
+                  <button class="vote-btn upvote" @click="vote('beer-craft', 'up')">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+                    <span x-text="getVoteCount('beer-craft')">0</span>
+                  </button>
+                  <button class="vote-btn downvote" @click="vote('beer-craft', 'down')">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                  </button>
+                </div>
+              </div>
+              <div class="card flex items-center justify-between" data-item="beer-seltzer">
+                <span class="text-cream-200 text-sm">2 cases seltzer</span>
+                <div class="flex items-center gap-2">
+                  <button class="vote-btn upvote" @click="vote('beer-seltzer', 'up')">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+                    <span x-text="getVoteCount('beer-seltzer')">0</span>
+                  </button>
+                  <button class="vote-btn downvote" @click="vote('beer-seltzer', 'down')">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Liquor -->
+          <div>
+            <h3 class="text-sm uppercase tracking-wider text-sandstone-300 font-medium border-b border-pine-800 pb-2 mb-3">Liquor</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">3 bottles bourbon</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('liquor-bourbon','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('liquor-bourbon')">0</span></button><button class="vote-btn downvote" @click="vote('liquor-bourbon','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">2 bottles tequila</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('liquor-tequila','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('liquor-tequila')">0</span></button><button class="vote-btn downvote" @click="vote('liquor-tequila','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">2 bottles vodka</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('liquor-vodka','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('liquor-vodka')">0</span></button><button class="vote-btn downvote" @click="vote('liquor-vodka','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">1 bottle mezcal</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('liquor-mezcal','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('liquor-mezcal')">0</span></button><button class="vote-btn downvote" @click="vote('liquor-mezcal','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">1 bottle whiskey</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('liquor-whiskey','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('liquor-whiskey')">0</span></button><button class="vote-btn downvote" @click="vote('liquor-whiskey','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+            </div>
+          </div>
+
+          <!-- Mixers -->
+          <div>
+            <h3 class="text-sm uppercase tracking-wider text-sandstone-300 font-medium border-b border-pine-800 pb-2 mb-3">Mixers</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Club soda</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('mixer-clubsoda','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('mixer-clubsoda')">0</span></button><button class="vote-btn downvote" @click="vote('mixer-clubsoda','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Tonic</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('mixer-tonic','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('mixer-tonic')">0</span></button><button class="vote-btn downvote" @click="vote('mixer-tonic','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Ginger beer</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('mixer-gingerbeer','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('mixer-gingerbeer')">0</span></button><button class="vote-btn downvote" @click="vote('mixer-gingerbeer','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Lime juice</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('mixer-limejuice','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('mixer-limejuice')">0</span></button><button class="vote-btn downvote" @click="vote('mixer-limejuice','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Margarita mix</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('mixer-margmix','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('mixer-margmix')">0</span></button><button class="vote-btn downvote" @click="vote('mixer-margmix','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+            </div>
+          </div>
+
+          <!-- Food: Breakfast -->
+          <div>
+            <h3 class="text-sm uppercase tracking-wider text-sandstone-300 font-medium border-b border-pine-800 pb-2 mb-3">Food — Breakfast</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Eggs (4 dozen)</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('food-eggs','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('food-eggs')">0</span></button><button class="vote-btn downvote" @click="vote('food-eggs','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Bacon</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('food-bacon','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('food-bacon')">0</span></button><button class="vote-btn downvote" @click="vote('food-bacon','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Bagels</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('food-bagels','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('food-bagels')">0</span></button><button class="vote-btn downvote" @click="vote('food-bagels','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Cream cheese</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('food-creamcheese','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('food-creamcheese')">0</span></button><button class="vote-btn downvote" @click="vote('food-creamcheese','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Avocado</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('food-avocado','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('food-avocado')">0</span></button><button class="vote-btn downvote" @click="vote('food-avocado','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Fruit</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('food-fruit','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('food-fruit')">0</span></button><button class="vote-btn downvote" @click="vote('food-fruit','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Yogurt</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('food-yogurt','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('food-yogurt')">0</span></button><button class="vote-btn downvote" @click="vote('food-yogurt','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Coffee</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('food-coffee','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('food-coffee')">0</span></button><button class="vote-btn downvote" @click="vote('food-coffee','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+            </div>
+          </div>
+
+          <!-- Food: Lunch -->
+          <div>
+            <h3 class="text-sm uppercase tracking-wider text-sandstone-300 font-medium border-b border-pine-800 pb-2 mb-3">Food — Lunch</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Deli meats</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('food-deli','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('food-deli')">0</span></button><button class="vote-btn downvote" @click="vote('food-deli','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Cheese</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('food-cheese','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('food-cheese')">0</span></button><button class="vote-btn downvote" @click="vote('food-cheese','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Sandwich bread</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('food-bread','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('food-bread')">0</span></button><button class="vote-btn downvote" @click="vote('food-bread','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Wraps</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('food-wraps','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('food-wraps')">0</span></button><button class="vote-btn downvote" @click="vote('food-wraps','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Chips</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('food-chips','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('food-chips')">0</span></button><button class="vote-btn downvote" @click="vote('food-chips','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Salsa</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('food-salsa','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('food-salsa')">0</span></button><button class="vote-btn downvote" @click="vote('food-salsa','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Guacamole</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('food-guac','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('food-guac')">0</span></button><button class="vote-btn downvote" @click="vote('food-guac','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+            </div>
+          </div>
+
+          <!-- Food: Dinner / Grill -->
+          <div>
+            <h3 class="text-sm uppercase tracking-wider text-sandstone-300 font-medium border-b border-pine-800 pb-2 mb-3">Food — Dinner / Grill</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">12-15 steaks or tri-tip</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('food-steaks','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('food-steaks')">0</span></button><button class="vote-btn downvote" @click="vote('food-steaks','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">16 burgers</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('food-burgers','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('food-burgers')">0</span></button><button class="vote-btn downvote" @click="vote('food-burgers','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Burger buns</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('food-buns','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('food-buns')">0</span></button><button class="vote-btn downvote" @click="vote('food-buns','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Hot dogs</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('food-hotdogs','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('food-hotdogs')">0</span></button><button class="vote-btn downvote" @click="vote('food-hotdogs','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Potatoes</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('food-potatoes','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('food-potatoes')">0</span></button><button class="vote-btn downvote" @click="vote('food-potatoes','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Corn</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('food-corn','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('food-corn')">0</span></button><button class="vote-btn downvote" @click="vote('food-corn','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Salad kit</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('food-salad','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('food-salad')">0</span></button><button class="vote-btn downvote" @click="vote('food-salad','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+            </div>
+          </div>
+
+          <!-- Snacks -->
+          <div>
+            <h3 class="text-sm uppercase tracking-wider text-sandstone-300 font-medium border-b border-pine-800 pb-2 mb-3">Snacks</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Beef jerky</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('snack-jerky','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('snack-jerky')">0</span></button><button class="vote-btn downvote" @click="vote('snack-jerky','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Trail mix</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('snack-trailmix','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('snack-trailmix')">0</span></button><button class="vote-btn downvote" @click="vote('snack-trailmix','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Pretzels</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('snack-pretzels','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('snack-pretzels')">0</span></button><button class="vote-btn downvote" @click="vote('snack-pretzels','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Protein bars</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('snack-proteinbars','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('snack-proteinbars')">0</span></button><button class="vote-btn downvote" @click="vote('snack-proteinbars','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+            </div>
+          </div>
+
+          <!-- House Supplies -->
+          <div>
+            <h3 class="text-sm uppercase tracking-wider text-sandstone-300 font-medium border-b border-pine-800 pb-2 mb-3">House Supplies</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Paper towels</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('supply-papertowels','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('supply-papertowels')">0</span></button><button class="vote-btn downvote" @click="vote('supply-papertowels','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Solo cups</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('supply-cups','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('supply-cups')">0</span></button><button class="vote-btn downvote" @click="vote('supply-cups','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Plastic plates</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('supply-plates','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('supply-plates')">0</span></button><button class="vote-btn downvote" @click="vote('supply-plates','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Garbage bags</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('supply-garbage','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('supply-garbage')">0</span></button><button class="vote-btn downvote" @click="vote('supply-garbage','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Cooler ice</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('supply-ice','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('supply-ice')">0</span></button><button class="vote-btn downvote" @click="vote('supply-ice','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Sunscreen</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('supply-sunscreen','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('supply-sunscreen')">0</span></button><button class="vote-btn downvote" @click="vote('supply-sunscreen','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Liquid IV / Pedialyte</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('supply-liquidiv','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('supply-liquidiv')">0</span></button><button class="vote-btn downvote" @click="vote('supply-liquidiv','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Poker chips</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('supply-poker','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('supply-poker')">0</span></button><button class="vote-btn downvote" @click="vote('supply-poker','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+              <div class="card flex items-center justify-between"><span class="text-cream-200 text-sm">Cornhole</span><div class="flex items-center gap-2"><button class="vote-btn upvote" @click="vote('supply-cornhole','up')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg><span x-text="getVoteCount('supply-cornhole')">0</span></button><button class="vote-btn downvote" @click="vote('supply-cornhole','down')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button></div></div>
+            </div>
+          </div>
+
+          <!-- User Suggestions Section -->
+          <div>
+            <h3 class="text-sm uppercase tracking-wider text-amber-400 font-medium border-b border-pine-800 pb-2 mb-3">Group Suggestions</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <template x-for="s in suggestions" :key="s.id">
+                <div class="card flex items-center justify-between">
+                  <div>
+                    <span class="text-cream-200 text-sm" x-text="s.item"></span>
+                    <span class="text-cream-400 text-xs ml-2" x-text="'— ' + s.name"></span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <button class="vote-btn upvote" @click="voteSuggestion(s.id, 'up')">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+                      <span x-text="s.votes || 0">0</span>
+                    </button>
+                    <button class="vote-btn downvote" @click="voteSuggestion(s.id, 'down')">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                  </div>
+                </div>
+              </template>
+              <p x-show="suggestions.length === 0" class="text-cream-400 text-sm italic col-span-2">No suggestions yet — be the first!</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Suggestion Form (1/3) -->
+        <div class="lg:col-span-1">
+          <div class="card sticky top-24 p-6">
+            <h3 class="font-serif text-xl text-cream-100 mb-4">Suggest an Item</h3>
+            <form @submit.prevent="submitSuggestion()" class="space-y-4">
+              <div>
+                <label class="text-cream-400 text-sm font-medium block mb-1">Item</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  placeholder="e.g., More ranch dressing"
+                  x-model="suggestionItem"
+                  maxlength="100"
+                  required
+                >
+              </div>
+              <div>
+                <label class="text-cream-400 text-sm font-medium block mb-1">Your Name</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  placeholder="e.g., Jake"
+                  x-model="suggestionName"
+                  maxlength="50"
+                >
+              </div>
+              <button type="submit" class="btn-warm w-full">Submit Suggestion</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/auth.js"></script>
+  <script>requireAuth();</script>
+  <script src="js/nav.js"></script>
+  <script src="js/parallax.js"></script>
+  <script src="js/groceries.js"></script>
+  <script src="js/page-transitions.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBFyIvH4fayeaGWjp3cYVn96-peiLk7c0c",
+      authDomain: "murdock-bachelor-party.firebaseapp.com",
+      databaseURL: "https://murdock-bachelor-party-default-rtdb.firebaseio.com",
+      projectId: "murdock-bachelor-party",
+      storageBucket: "murdock-bachelor-party.firebasestorage.app",
+      messagingSenderId: "826301458399",
+      appId: "1:826301458399:web:6299157f635a848a38866a",
+      measurementId: "G-LR3ZHJ4SJ3"
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cost Breakdown — Murdock's Weekend</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            pine: { 300: '#B3E0C0', 400: '#90CFA2', 500: '#63B57D', 700: '#398852', 800: '#28633B', 900: '#1B4127', 950: '#112C1A' },
+            sandstone: { 200: '#E8D5B7', 300: '#D4AF87', 400: '#C4956A', 500: '#A67C52' },
+            skyblue: { 300: '#A3D4DF', 400: '#7BBFCF', 500: '#5BA8BE' },
+            cream: { 100: '#F5F0E8', 200: '#EDE5D8', 400: '#BDB4A4' },
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav id="main-nav" class="nav-glass fixed top-0 left-0 right-0 z-40 px-6 py-4">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <a href="home.html" class="font-serif italic text-sandstone-300 text-lg">Murdock's Weekend</a>
+      <div class="hidden md:flex items-center gap-6">
+        <a href="home.html" class="nav-link">Home</a>
+        <a href="packing.html" class="nav-link">What To Pack</a>
+        <a href="arrivals.html" class="nav-link">Arrivals</a>
+        <a href="groceries.html" class="nav-link">Groceries</a>
+        <a href="schedule.html" class="nav-link">Schedule</a>
+        <a href="costs.html" class="nav-link">Costs</a>
+      </div>
+      <button id="hamburger-btn" class="md:hidden text-cream-200 p-2" aria-label="Toggle menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobile-menu" class="mobile-menu">
+    <button class="absolute top-4 right-4 text-cream-200 p-2" onclick="document.getElementById('mobile-menu').classList.remove('open'); document.body.style.overflow='';">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+    <a href="home.html" class="mobile-nav-link nav-link">Home</a>
+    <a href="packing.html" class="mobile-nav-link nav-link">What To Pack</a>
+    <a href="arrivals.html" class="mobile-nav-link nav-link">Arrivals</a>
+    <a href="groceries.html" class="mobile-nav-link nav-link">Groceries</a>
+    <a href="schedule.html" class="mobile-nav-link nav-link">Schedule</a>
+    <a href="costs.html" class="mobile-nav-link nav-link">Costs</a>
+  </div>
+
+  <main class="page-content pt-24">
+    <div class="max-w-4xl mx-auto px-6 py-8">
+      <h1 class="font-serif text-3xl md:text-5xl font-bold text-cream-100 mb-2">Cost Breakdown</h1>
+      <p class="text-cream-400 text-sm mb-8">Estimated costs per person (split 16 ways unless noted)</p>
+
+      <!-- Per Person Summary -->
+      <div class="card mb-8 p-6 border-sandstone-500">
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="eyebrow text-sandstone-300">Estimated Total Per Person</span>
+            <p class="font-serif text-4xl text-sandstone-400 font-bold">~$350–$450</p>
+          </div>
+          <p class="text-cream-400 text-sm text-right">Excludes personal bar tabs<br>and optional activities</p>
+        </div>
+      </div>
+
+      <!-- Accommodation & Transport -->
+      <div class="mb-8">
+        <h3 class="text-sm uppercase tracking-wider text-sandstone-300 font-medium border-b border-pine-800 pb-2 mb-4">Accommodation & Transport</h3>
+        <table class="cost-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Total</th>
+              <th>Per Person</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="text-cream-200">Airbnb (3 nights)</td><td class="text-cream-200">TBD</td><td class="text-cream-200">TBD</td></tr>
+            <tr><td class="text-cream-200">Sprinter Van rental</td><td class="text-cream-200">~$538</td><td class="text-cream-200">~$34</td></tr>
+            <tr><td class="text-cream-200">2nd vehicle rental</td><td class="text-cream-200">~$170</td><td class="text-cream-200">~$11</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Groceries -->
+      <div class="mb-8">
+        <h3 class="text-sm uppercase tracking-wider text-sandstone-300 font-medium border-b border-pine-800 pb-2 mb-4">Groceries & Supplies</h3>
+        <table class="cost-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Total</th>
+              <th>Per Person</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="text-cream-200">Beer (~200 beers)</td><td class="text-cream-200">~$400</td><td class="text-cream-200">~$25</td></tr>
+            <tr><td class="text-cream-200">Liquor (9 bottles)</td><td class="text-cream-200">~$300</td><td class="text-cream-200">~$19</td></tr>
+            <tr><td class="text-cream-200">Mixers</td><td class="text-cream-200">~$50</td><td class="text-cream-200">~$3</td></tr>
+            <tr><td class="text-cream-200">Food (breakfast/lunch/dinner/snacks)</td><td class="text-cream-200">~$600</td><td class="text-cream-200">~$38</td></tr>
+            <tr><td class="text-cream-200">House supplies</td><td class="text-cream-200">~$100</td><td class="text-cream-200">~$6</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Friday -->
+      <div class="mb-8">
+        <h3 class="text-sm uppercase tracking-wider text-sandstone-300 font-medium border-b border-pine-800 pb-2 mb-4">Friday — Adventure + Big Dinner</h3>
+        <table class="cost-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Total</th>
+              <th>Per Person</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="text-cream-200">Dinner at Repeal</td><td class="text-cream-200">—</td><td class="text-cream-200">~$50–70</td></tr>
+            <tr><td class="text-cream-200">Bar crawl (Lake Effect + Quarters)</td><td class="text-cream-200">—</td><td class="text-cream-200">~$30–50</td></tr>
+          </tbody>
+        </table>
+        <p class="text-cream-400 text-xs mt-2 italic">Bar tabs are individual</p>
+      </div>
+
+      <!-- Saturday -->
+      <div class="mb-8">
+        <h3 class="text-sm uppercase tracking-wider text-sandstone-300 font-medium border-b border-pine-800 pb-2 mb-4">Saturday — Lake Day + Park City</h3>
+        <table class="cost-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Total</th>
+              <th>Per Person</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="text-cream-200">Pontoon boat rental (Jordanelle)</td><td class="text-cream-200">~$400–600</td><td class="text-cream-200">~$25–38</td></tr>
+            <tr><td class="text-cream-200">Cooler rentals</td><td class="text-cream-200">~$50</td><td class="text-cream-200">~$3</td></tr>
+            <tr><td class="text-cream-200">Park City bar crawl</td><td class="text-cream-200">—</td><td class="text-cream-200">~$40–60</td></tr>
+            <tr><td class="text-cream-200">Late night food (pizza/tacos)</td><td class="text-cream-200">—</td><td class="text-cream-200">~$10–15</td></tr>
+          </tbody>
+        </table>
+        <p class="text-cream-400 text-xs mt-2 italic">Bar tabs are individual</p>
+      </div>
+
+      <!-- Sunday -->
+      <div class="mb-8">
+        <h3 class="text-sm uppercase tracking-wider text-sandstone-300 font-medium border-b border-pine-800 pb-2 mb-4">Sunday — Recovery</h3>
+        <table class="cost-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Total</th>
+              <th>Per Person</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="text-cream-200">Brunch (Harvest or Atticus)</td><td class="text-cream-200">—</td><td class="text-cream-200">~$20–30</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="text-cream-400 text-sm text-center mt-12 mb-8">
+        All estimates are approximate. We'll Venmo-settle after the trip.
+      </p>
+    </div>
+  </main>
+
+  <script src="js/auth.js"></script>
+  <script>requireAuth();</script>
+  <script src="js/nav.js"></script>
+  <script src="js/parallax.js"></script>
+  <script src="js/scroll-animations.js"></script>
+  <script src="js/page-transitions.js"></script>
+</body>
+</html>
