@@ -4,7 +4,7 @@
 
 ### fix-schedule-photo-crops
 **Task**: Fix Thursday evening and Friday morning photo crops on mobile
-**Stage**: IMPLEMENT
+**Stage**: VERIFY-APP
 **Pipeline**: code-workflow
 **Branch**: task/fix-schedule-photo-crops
 **Worktree**: .worktree/fix-schedule-photo-crops
@@ -16,7 +16,11 @@
 **Quality Scores**:
 | Stage | Score | Attempts | Status |
 |-------|-------|----------|--------|
-| IMPLEMENT | - | 0 | CURRENT |
+| IMPLEMENT | 9.95 | 1 | PASS |
+| WRITE-TESTS | SKIP | - | SKIPPED |
+| QUALITY-CHECK | SKIP | - | SKIPPED |
+| SIMPLIFY | SKIP | - | SKIPPED |
+| VERIFY-APP | - | 0 | CURRENT |
 
 ---
 
